@@ -11,6 +11,9 @@ import * as multer from 'multer';
 
 @Controller('localutil')
 export class LocalutilController {
+  /**
+   * 文件上传
+   */
   @Get()
   localutilIndex(): string {
     return 'localutil';
@@ -32,4 +35,8 @@ export class LocalutilController {
   uploadFile(@UploadedFile() file: Express.Multer.File) {
     return '上传成功';
   }
+
+  /**
+   * 文字上传
+   */
 }
