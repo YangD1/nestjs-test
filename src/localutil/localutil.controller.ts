@@ -5,19 +5,25 @@ import {
   UploadedFile,
   UseInterceptors,
   HttpCode,
+  Bind,
+  Res,
+  Body,
 } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
 import * as multer from 'multer';
+import * as fs from 'fs';
+import * as dayjs from 'dayjs';
 
 @Controller('localutil')
 export class LocalutilController {
-  /**
-   * 文件上传
-   */
   @Get()
   localutilIndex(): string {
     return 'localutil';
   }
+
+  /**
+   * 文件上传
+   */
   @Post('upload')
   @HttpCode(201)
   @UseInterceptors(
@@ -39,4 +45,36 @@ export class LocalutilController {
   /**
    * 文字上传
    */
+  @Post('text')
+  @Bind(Res(), Body())
+  textSave(res: any, body: any): void {
+    console.log(body);
+    const newName: number = dayjs(new Date()).unix();
+    fs.writeFile(
+      'c:/Users/Administrator/Desktop/localutil/uploadfiles/' +
+        newName +
+        '.txt',
+      body.text,
+      { flag: 'a' },
+      function (err) {
+        if (err) {
+          throw err;
+        }
+        console.log('Hello.');
+        // 写入成功后读取测试
+        fs.readFile(
+          'c:/Users/Administrator/Desktop/localutil/uploadfiles/' +
+            newName +
+            '.txt',
+          function (err, data) {
+            if (err) {
+              throw err;
+            }
+            console.log(data);
+          },
+        );
+      },
+    );
+    res.status('201').send({ msg: '创建成功' });
+  }
 }
