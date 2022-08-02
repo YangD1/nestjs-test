@@ -60,19 +60,19 @@ export class LocalutilController {
         if (err) {
           throw err;
         }
-        console.log('Hello.');
+        // console.log('Hello.');
         // 写入成功后读取测试
-        fs.readFile(
-          'c:/Users/Administrator/Desktop/localutil/uploadfiles/' +
-            newName +
-            '.txt',
-          function (err, data) {
-            if (err) {
-              throw err;
-            }
-            console.log(data);
-          },
-        );
+        // fs.readFile(
+        //   'c:/Users/Administrator/Desktop/localutil/uploadfiles/' +
+        //     newName +
+        //     '.txt',
+        //   function (err, data) {
+        //     if (err) {
+        //       throw err;
+        //     }
+        //     console.log(data);
+        //   },
+        // );
       },
     );
     res.status('201').send({ msg: '创建成功' });
