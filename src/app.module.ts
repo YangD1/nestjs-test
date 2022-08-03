@@ -4,6 +4,7 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { CatsController } from './cats/cats.controller';
 import { LocalutilController } from './localutil/localutil.controller';
+import { ConfigModule } from '@nestjs/config';
 
 @Module({
   imports: [
@@ -15,6 +16,9 @@ import { LocalutilController } from './localutil/localutil.controller';
       password: 'secret',
       database: 'nest_test',
       models: [],
+    }),
+    ConfigModule.forRoot({
+      envFilePath: ['.env.development.local', '.development.env'],
     }),
   ],
   controllers: [AppController, CatsController, LocalutilController],

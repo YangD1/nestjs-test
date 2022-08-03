@@ -18,6 +18,7 @@ import * as dayjs from 'dayjs';
 export class LocalutilController {
   @Get()
   localutilIndex(): string {
+    console.log(process.env.FILEPATH);
     return 'localutil';
   }
 
@@ -30,7 +31,7 @@ export class LocalutilController {
     FileInterceptor('file', {
       storage: multer.diskStorage({
         destination: (req, file, cb) => {
-          cb(null, 'c:/Users/Administrator/Desktop/localutil/uploadfiles/');
+          cb(null, process.env.FILEPATH);
         },
         filename: (req, file, cb) => {
           cb(null, file.originalname);
@@ -51,9 +52,7 @@ export class LocalutilController {
     console.log(body);
     const newName: number = dayjs(new Date()).unix();
     fs.writeFile(
-      'c:/Users/Administrator/Desktop/localutil/uploadfiles/' +
-        newName +
-        '.txt',
+      process.env.FILEPATH + newName + '.txt',
       body.text,
       { flag: 'a' },
       function (err) {
